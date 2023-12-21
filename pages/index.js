@@ -1,8 +1,9 @@
 import { Inter } from "next/font/google";
-import { useRef } from "react";
+import { useRef, useState } from "react";
 const inter = Inter({ subsets: ["latin"] });
 
 export default function Home() {
+  const [feedbackItems, setFeedbackItems] = useState([]);
   const emailInputRef = useRef();
   const feedbackInputRef = useRef();
 
@@ -23,6 +24,11 @@ export default function Home() {
     })
       .then((response) => response.json())
       .then((data) => console.log(data));
+  }
+  function loadFeedbackHandler() {
+    fetch("/api/feedback")
+      .then((response) => response.json())
+      .then((data) => setFeedbackItems(data.feedback));
   }
   return (
     <>
@@ -56,6 +62,13 @@ export default function Home() {
           </button>
         </form>
       </div>
+      <hr />
+      <button onClick={loadFeedbackHandler}>Load Feedback </button>
+      <ul>
+        {feedbackItems.map((item) => (
+          <li key={item.id}>{item.text}</li>
+        ))}
+      </ul>
     </>
   );
 }
