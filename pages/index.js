@@ -10,7 +10,19 @@ export default function Home() {
     event.preventDefault();
     const enteredEmail = emailInputRef.current.value;
     const enteredInput = feedbackInputRef.current.value;
-    fetch(); // {email: 'test@test.com , text:'some feedback text'}
+
+    const reqBody = { email: enteredEmail, text: enteredInput };
+
+    // {email: 'test@test.com , text:'some feedback text'}
+    fetch("/api/feedback", {
+      method: "POST",
+      body: JSON.stringify(reqBody),
+      headers: {
+        "Content-type": "application/json",
+      },
+    })
+      .then((response) => response.json())
+      .then((data) => console.log(data));
   }
   return (
     <>
