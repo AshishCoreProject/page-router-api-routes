@@ -63,7 +63,12 @@ export default function Home() {
         </form>
       </div>
       <hr />
-      <button onClick={loadFeedbackHandler}>Load Feedback </button>
+      <button
+        className=" bg-slate-500 text-neutral-50"
+        onClick={loadFeedbackHandler}
+      >
+        Load Feedback{" "}
+      </button>
       <ul>
         {feedbackItems.map((item) => (
           <li key={item.id}>{item.text}</li>
